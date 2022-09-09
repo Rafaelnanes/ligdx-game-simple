@@ -2,6 +2,8 @@ package com.mygdx.game.player;
 
 import com.mygdx.game.player.state.PlayerState;
 import com.mygdx.game.player.state.PlayerStateBlocked;
+import com.mygdx.game.player.state.PlayerStateDead;
+import com.mygdx.game.player.state.PlayerStateGetHit;
 import com.mygdx.game.player.state.PlayerStateIdle;
 import com.mygdx.game.player.state.PlayerStateMoving;
 
@@ -10,14 +12,17 @@ public class PlayerStateMachine {
   private final PlayerStateIdle idle;
   private final PlayerStateMoving moving;
   private final PlayerStateBlocked blocked;
+  private final PlayerStateGetHit getHit;
+  private final PlayerStateDead dead;
   private final Player player;
 
   public PlayerStateMachine(Player player) {
-    this.idle = new PlayerStateIdle(this);
-    this.moving = new PlayerStateMoving(this);
-    this.blocked = new PlayerStateBlocked(this);
+    this.idle = new PlayerStateIdle();
+    this.moving = new PlayerStateMoving();
+    this.blocked = new PlayerStateBlocked();
+    this.getHit = new PlayerStateGetHit();
+    this.dead = new PlayerStateDead();
     this.player = player;
-    idle.action(player);
   }
 
   public PlayerStateIdle getIdle() {
@@ -30,6 +35,14 @@ public class PlayerStateMachine {
 
   public PlayerStateBlocked getBlocked() {
     return blocked;
+  }
+
+  public PlayerState getHit() {
+    return getHit;
+  }
+  
+  public PlayerState getDead() {
+    return dead;
   }
 
   public PlayerState activateIdle() {
@@ -47,8 +60,20 @@ public class PlayerStateMachine {
     return moving;
   }
 
+  public PlayerState activateGetHit() {
+    setState(getHit);
+    return getHit;
+  }
+
+  public PlayerState activateDead() {
+    setState(dead);
+    return dead;
+  }
+
   public void setState(PlayerState state) {
-    //TODO botar depois a regra para quando morrer
+    if (dead.isActive()) {
+      return;
+    }
     state.action(player);
   }
 

@@ -6,12 +6,12 @@ public abstract class AbstractPlayerState implements PlayerState {
 
   @Override
   public void enable() {
-    active = false;
+    active = true;
   }
 
   @Override
   public void disable() {
-    active = true;
+    active = false;
   }
 
   @Override

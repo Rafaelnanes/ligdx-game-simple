@@ -19,11 +19,8 @@ public class PlayerStateMoving extends AbstractPlayerState {
   private final Animation<TextureAtlas.AtlasRegion> runLeftAnimation;
   private final Animation<TextureAtlas.AtlasRegion> runUpAnimation;
   private final Animation<TextureAtlas.AtlasRegion> runDownAnimation;
-  private final PlayerStateMachine stateMachine;
 
-  public PlayerStateMoving(PlayerStateMachine stateMachine) {
-
-    this.stateMachine = stateMachine;
+  public PlayerStateMoving() {
     TextureAtlas textureAtlas = new TextureAtlas(MyAssetManager.getInstance().getZeldaAtlas());
     runRightAnimation =
         new Animation<>(FRAME_DURATION, textureAtlas.findRegions("runRight"),
@@ -37,6 +34,7 @@ public class PlayerStateMoving extends AbstractPlayerState {
   @Override
   public PlayerState action(Player player) {
     enable();
+    final PlayerStateMachine stateMachine = player.getStateMachine();
     stateMachine.getIdle().disable();
     stateMachine.getBlocked().disable();
 

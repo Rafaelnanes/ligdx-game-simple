@@ -12,12 +12,9 @@ import static com.mygdx.game.player.PlayerAnimation.FRAME_DURATION;
 
 public class PlayerStateIdle extends AbstractPlayerState {
 
-  private final PlayerStateMachine stateMachine;
-
   private final Animation<TextureAtlas.AtlasRegion> idleAnimation;
 
-  public PlayerStateIdle(PlayerStateMachine stateMachine) {
-    this.stateMachine = stateMachine;
+  public PlayerStateIdle() {
     TextureAtlas textureAtlas = new TextureAtlas(MyAssetManager.getInstance().getZeldaAtlas());
     idleAnimation = new Animation<>(FRAME_DURATION * 2, textureAtlas.findRegions("idle"), Animation.PlayMode.LOOP);
   }
@@ -25,6 +22,7 @@ public class PlayerStateIdle extends AbstractPlayerState {
   @Override
   public PlayerState action(Player player) {
     enable();
+    final PlayerStateMachine stateMachine = player.getStateMachine();
     stateMachine.getMoving().disable();
     stateMachine.getBlocked().disable();
 

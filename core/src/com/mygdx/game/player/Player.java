@@ -10,10 +10,12 @@ public class Player extends Actor {
   private final PlayerAnimation animation;
   private final PlayerStateMachine stateMachine;
   private final int velocity = 100;
+  private int health = 100;
 
   public Player() {
     animation = new PlayerAnimation(this);
     stateMachine = new PlayerStateMachine(this);
+    stateMachine.getIdle().action(this);
   }
 
   @Override
@@ -21,4 +23,17 @@ public class Player extends Actor {
     animation.draw(batch);
   }
 
+  public void getHit() {
+    health -= 40;
+    System.out.println("Health: " + health);
+  }
+
+  public void dead() {
+    health = 0;
+    System.out.println("Dead");
+  }
+
+  public int getHealth() {
+    return health;
+  }
 }
