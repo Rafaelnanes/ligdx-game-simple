@@ -6,7 +6,7 @@ import com.mygdx.game.player.PlayerStateMachine;
 public class PlayerStateDead extends AbstractPlayerState {
 
   @Override
-  public PlayerState action(Player player) {
+  public void action(Player player) {
     if (!player.getStateMachine().getDead().isActive()) {
       player.dead();
     }
@@ -16,6 +16,5 @@ public class PlayerStateDead extends AbstractPlayerState {
     stateMachine.getIdle().disable();
     stateMachine.getBlocked().disable();
     stateMachine.getHit().disable();
-    return this;
   }
 }

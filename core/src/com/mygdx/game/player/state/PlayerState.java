@@ -4,7 +4,7 @@ import com.mygdx.game.player.Player;
 
 public interface PlayerState {
 
-  PlayerState action(Player player);
+  void action(Player player);
 
   void enable();
 

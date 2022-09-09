@@ -20,7 +20,7 @@ public class PlayerStateIdle extends AbstractPlayerState {
   }
 
   @Override
-  public PlayerState action(Player player) {
+  public void action(Player player) {
     enable();
     final PlayerStateMachine stateMachine = player.getStateMachine();
     stateMachine.getMoving().disable();
@@ -31,7 +31,6 @@ public class PlayerStateIdle extends AbstractPlayerState {
 
     TextureRegion textureRegion = idleAnimation.getKeyFrame(stateTime, true);
     animation.setTextureRegion(textureRegion);
-    return this;
   }
 
 }

@@ -8,7 +8,7 @@ import com.mygdx.game.player.PlayerStateMachine;
 public class PlayerStateBlocked extends AbstractPlayerState {
 
   @Override
-  public PlayerState action(Player player) {
+  public void action(Player player) {
     enable();
     final PlayerStateMachine stateMachine = player.getStateMachine();
     stateMachine.getIdle().disable();
@@ -18,6 +18,5 @@ public class PlayerStateBlocked extends AbstractPlayerState {
     final Vector2 vector2 = animation.getLastPosition();
 
     animation.getPlayerRectangle().setPosition(vector2.x, vector2.y);
-    return this;
   }
 }
