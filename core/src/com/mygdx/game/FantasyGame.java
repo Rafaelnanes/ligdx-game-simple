@@ -31,8 +31,8 @@ public class FantasyGame extends ApplicationAdapter {
     camera.setToOrtho(false, w, h);
     camera.update();
     tiledMap = new TmxMapLoader().load("tiled/first-map.tmx");
-    final MapLayer collisionLayer = tiledMap.getLayers().get("collisions");
-    final MapLayer buffLayer = tiledMap.getLayers().get("flowers");
+    final MapLayer collisionLayer = tiledMap.getLayers().get("Blockers");
+    final MapLayer buffLayer = tiledMap.getLayers().get("Flowers");
     tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 
     zelda = new Player(collisionLayer.getObjects(), buffLayer.getObjects());
