@@ -1,8 +1,7 @@
-package com.mygdx.game.zelda;
+package com.mygdx.game.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -10,35 +9,31 @@ import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.zelda.state.ZeldaState;
-import com.mygdx.game.zelda.state.ZeldaStateIdle;
+import com.mygdx.game.player.state.PlayerState;
+import com.mygdx.game.player.state.PlayerStateIdle;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ZeldaAnimation {
+public class PlayerAnimation {
 
   public static final float FRAME_DURATION = 0.1f;
   private final List<Rectangle> rectanglesCollisions;
   private final List<Rectangle> bufferCollisions;
   private final Rectangle playerRectangle;
-  private final ZeldaPlayer player;
+  private final Player player;
   private final Vector2 lastPosition = new Vector2();
   private float stateTime = 0f;
   private float speed;
   private TextureRegion textureRegion;
 
-  public ZeldaAnimation(ZeldaPlayer player, MapObjects collisions, MapObjects bufferCollision) {
+  public PlayerAnimation(Player player, MapObjects collisions, MapObjects bufferCollision) {
     this.player = player;
     rectanglesCollisions = getCollisions(collisions);
     bufferCollisions = getCollisions(bufferCollision);
 
-    TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("zelda/zelda.atlas"));
-
-    Animation<TextureAtlas.AtlasRegion> idleAnimation =
-        new Animation<>(FRAME_DURATION * 2, textureAtlas.findRegions("idle"), Animation.PlayMode.LOOP);
-
-    final TextureAtlas.AtlasRegion anyRegion = idleAnimation.getKeyFrame(0);
+    final TextureAtlas.AtlasRegion anyRegion =
+        new TextureAtlas(Gdx.files.internal("zelda/zelda.atlas")).getRegions().get(0);
     playerRectangle = new Rectangle(0, 0, anyRegion.getRegionWidth(), anyRegion.getRegionHeight());
   }
 
@@ -57,25 +52,25 @@ public class ZeldaAnimation {
         break;
       }
     }
-    final ZeldaStateMachine stateMachine = player.getStateMachine();
-    ZeldaState state = stateMachine.getIdle();
+    final PlayerStateMachine stateMachine = player.getStateMachine();
+    PlayerState state = stateMachine.getIdle();
 
     if (Gdx.input.isKeyPressed(Input.Keys.A)
         || Gdx.input.isKeyPressed(Input.Keys.W)
         || Gdx.input.isKeyPressed(Input.Keys.D)
         || Gdx.input.isKeyPressed(Input.Keys.S)) {
-      state = stateMachine.changeToMoving();
+      state = stateMachine.activateMoving();
     }
 
     for (Rectangle rectanglesCollision : rectanglesCollisions) {
       if (playerRectangle.overlaps(rectanglesCollision)) {
-        state = stateMachine.changeToBlocked();
+        state = stateMachine.activateBlocked();
         break;
       }
     }
 
-    if (state instanceof ZeldaStateIdle) {
-      stateMachine.changeToIdle();
+    if (state instanceof PlayerStateIdle) {
+      stateMachine.activateIdle();
     }
 
     batch.draw(textureRegion, playerRectangle.getX(), playerRectangle.getY());

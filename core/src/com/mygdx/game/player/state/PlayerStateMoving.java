@@ -1,4 +1,4 @@
-package com.mygdx.game.zelda.state;
+package com.mygdx.game.player.state;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -6,19 +6,23 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
-import com.mygdx.game.zelda.ZeldaAnimation;
-import com.mygdx.game.zelda.ZeldaPlayer;
+import com.mygdx.game.player.Player;
+import com.mygdx.game.player.PlayerAnimation;
+import com.mygdx.game.player.PlayerStateMachine;
 
-import static com.mygdx.game.zelda.ZeldaAnimation.FRAME_DURATION;
+import static com.mygdx.game.player.PlayerAnimation.FRAME_DURATION;
 
-public class ZeldaStateMoving implements ZeldaState {
+public class PlayerStateMoving extends AbstractPlayerState {
 
   private final Animation<TextureAtlas.AtlasRegion> runRightAnimation;
   private final Animation<TextureAtlas.AtlasRegion> runLeftAnimation;
   private final Animation<TextureAtlas.AtlasRegion> runUpAnimation;
   private final Animation<TextureAtlas.AtlasRegion> runDownAnimation;
+  private final PlayerStateMachine stateMachine;
 
-  public ZeldaStateMoving() {
+  public PlayerStateMoving(PlayerStateMachine stateMachine) {
+
+    this.stateMachine = stateMachine;
     TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("zelda/zelda.atlas"));
     runRightAnimation =
         new Animation<>(FRAME_DURATION, textureAtlas.findRegions("runRight"),
@@ -30,8 +34,12 @@ public class ZeldaStateMoving implements ZeldaState {
   }
 
   @Override
-  public ZeldaState action(ZeldaPlayer player, ZeldaState nextState) {
-    final ZeldaAnimation animation = player.getAnimation();
+  public PlayerState action(Player player) {
+    enable();
+    stateMachine.getIdle().disable();
+    stateMachine.getBlocked().disable();
+
+    final PlayerAnimation animation = player.getAnimation();
     final Rectangle playerRectangle = animation.getPlayerRectangle();
     final float speed = animation.getSpeed();
     final float stateTime = animation.getStateTime();
@@ -56,6 +64,7 @@ public class ZeldaStateMoving implements ZeldaState {
       playerRectangle.setY(playerRectangle.getY() - speed);
       textureRegion = runDownAnimation.getKeyFrame(stateTime, true);
     }
+
     animation.setTextureRegion(textureRegion);
     return this;
   }
