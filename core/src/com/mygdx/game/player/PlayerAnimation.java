@@ -9,6 +9,7 @@ import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.context.MyAssetManager;
 import com.mygdx.game.player.state.PlayerState;
 import com.mygdx.game.player.state.PlayerStateIdle;
 
@@ -33,7 +34,7 @@ public class PlayerAnimation {
     bufferCollisions = getCollisions(bufferCollision);
 
     final TextureAtlas.AtlasRegion anyRegion =
-        new TextureAtlas(Gdx.files.internal("zelda/zelda.atlas")).getRegions().get(0);
+        new TextureAtlas(MyAssetManager.getInstance().getZeldaAtlas()).getRegions().get(0);
     playerRectangle = new Rectangle(0, 0, anyRegion.getRegionWidth(), anyRegion.getRegionHeight());
   }
 

@@ -1,9 +1,9 @@
 package com.mygdx.game.player.state;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.mygdx.game.context.MyAssetManager;
 import com.mygdx.game.player.Player;
 import com.mygdx.game.player.PlayerAnimation;
 import com.mygdx.game.player.PlayerStateMachine;
@@ -18,7 +18,7 @@ public class PlayerStateIdle extends AbstractPlayerState {
 
   public PlayerStateIdle(PlayerStateMachine stateMachine) {
     this.stateMachine = stateMachine;
-    TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("zelda/zelda.atlas"));
+    TextureAtlas textureAtlas = new TextureAtlas(MyAssetManager.getInstance().getZeldaAtlas());
     idleAnimation = new Animation<>(FRAME_DURATION * 2, textureAtlas.findRegions("idle"), Animation.PlayMode.LOOP);
   }
 

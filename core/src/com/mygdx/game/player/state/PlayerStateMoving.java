@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import com.mygdx.game.context.MyAssetManager;
 import com.mygdx.game.player.Player;
 import com.mygdx.game.player.PlayerAnimation;
 import com.mygdx.game.player.PlayerStateMachine;
@@ -23,7 +24,7 @@ public class PlayerStateMoving extends AbstractPlayerState {
   public PlayerStateMoving(PlayerStateMachine stateMachine) {
 
     this.stateMachine = stateMachine;
-    TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("zelda/zelda.atlas"));
+    TextureAtlas textureAtlas = new TextureAtlas(MyAssetManager.getInstance().getZeldaAtlas());
     runRightAnimation =
         new Animation<>(FRAME_DURATION, textureAtlas.findRegions("runRight"),
             Animation.PlayMode.LOOP_REVERSED);

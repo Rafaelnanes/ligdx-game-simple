@@ -8,9 +8,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.mygdx.game.context.MyAssetManager;
 import com.mygdx.game.player.Player;
 
 public class FantasyGame extends ApplicationAdapter {
@@ -30,7 +30,7 @@ public class FantasyGame extends ApplicationAdapter {
     camera = new OrthographicCamera();
     camera.setToOrtho(false, w, h);
     camera.update();
-    tiledMap = new TmxMapLoader().load("tiled/first-map.tmx");
+    tiledMap = MyAssetManager.getInstance().getTileMap();
     final MapLayer collisionLayer = tiledMap.getLayers().get("Blockers");
     final MapLayer buffLayer = tiledMap.getLayers().get("Flowers");
     tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
