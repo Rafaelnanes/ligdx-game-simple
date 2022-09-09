@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.context.MyAssetManager;
@@ -28,10 +29,14 @@ public class PlayerAnimation {
   private float speed;
   private TextureRegion textureRegion;
 
-  public PlayerAnimation(Player player, MapObjects collisions, MapObjects bufferCollision) {
+  public PlayerAnimation(Player player) {
     this.player = player;
+
+    final TiledMap tileMap = MyAssetManager.getInstance().getTileMap();
+    final MapObjects collisions = tileMap.getLayers().get("Blockers").getObjects();
+    final MapObjects buffLayer = tileMap.getLayers().get("Flowers").getObjects();
     rectanglesCollisions = getCollisions(collisions);
-    bufferCollisions = getCollisions(bufferCollision);
+    bufferCollisions = getCollisions(buffLayer);
 
     final TextureAtlas.AtlasRegion anyRegion =
         new TextureAtlas(MyAssetManager.getInstance().getZeldaAtlas()).getRegions().get(0);

@@ -5,7 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -31,11 +30,10 @@ public class FantasyGame extends ApplicationAdapter {
     camera.setToOrtho(false, w, h);
     camera.update();
     tiledMap = MyAssetManager.getInstance().getTileMap();
-    final MapLayer collisionLayer = tiledMap.getLayers().get("Blockers");
-    final MapLayer buffLayer = tiledMap.getLayers().get("Flowers");
+
     tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 
-    zelda = new Player(collisionLayer.getObjects(), buffLayer.getObjects());
+    zelda = new Player();
 
     stage = new Stage();
     stage.addActor(zelda);
