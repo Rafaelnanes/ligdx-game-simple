@@ -19,7 +19,7 @@ public class FantasyGame extends ApplicationAdapter {
 
   Stage stage;
   SpriteBatch sb;
-  ZeldaPlayer zelda;
+  OldPlayer zelda;
 
   @Override
   public void create() {
@@ -34,7 +34,7 @@ public class FantasyGame extends ApplicationAdapter {
     final MapLayer buffLayer = tiledMap.getLayers().get("flowers");
     tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 
-    zelda = new ZeldaPlayer(collisionLayer.getObjects(), buffLayer.getObjects());
+    zelda = new OldPlayer(collisionLayer.getObjects(), buffLayer.getObjects());
 
     stage = new Stage();
     stage.addActor(zelda);
