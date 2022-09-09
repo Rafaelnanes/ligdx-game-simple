@@ -11,6 +11,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.mygdx.game.zelda.ZeldaPlayer;
 
 public class FantasyGame extends ApplicationAdapter {
   TiledMap tiledMap;
@@ -19,7 +20,7 @@ public class FantasyGame extends ApplicationAdapter {
 
   Stage stage;
   SpriteBatch sb;
-  OldPlayer zelda;
+  ZeldaPlayer zelda;
 
   @Override
   public void create() {
@@ -34,7 +35,7 @@ public class FantasyGame extends ApplicationAdapter {
     final MapLayer buffLayer = tiledMap.getLayers().get("flowers");
     tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 
-    zelda = new OldPlayer(collisionLayer.getObjects(), buffLayer.getObjects());
+    zelda = new ZeldaPlayer(collisionLayer.getObjects(), buffLayer.getObjects());
 
     stage = new Stage();
     stage.addActor(zelda);
