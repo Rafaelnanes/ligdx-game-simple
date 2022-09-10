@@ -7,36 +7,37 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.game.context.MyAssetManager;
+import com.mygdx.game.context.MyState;
 import com.mygdx.game.player.Player;
-import com.mygdx.game.text.FloatingText;
+import com.mygdx.game.player.healthbar.HealthBar;
 
 public class FantasyGame extends ApplicationAdapter {
   private OrthographicCamera camera;
   private TiledMapRenderer tiledMapRenderer;
-
-  private Stage stage;
-  private FloatingText floatingText;
+  private MyState stage;
 
   @Override
   public void create() {
-    float w = Gdx.graphics.getWidth();
-    float h = Gdx.graphics.getHeight();
     camera = new OrthographicCamera();
-    camera.setToOrtho(false, w, h);
+    camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     camera.update();
     TiledMap tiledMap = MyAssetManager.getInstance().getTileMap();
 
     tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 
-    stage = new Stage();
+    stage = new MyState();
+
+    HealthBar healthBar = new HealthBar(200, 100);
+    healthBar.setPosition(10, Gdx.graphics.getHeight() - 20);
+    stage.addActor(healthBar);
 
     Player zelda = new Player();
     stage.addActor(zelda);
 
-  }
+    stage.setHealthBar(healthBar);
 
+  }
 
   @Override
   public void render() {
@@ -48,6 +49,7 @@ public class FantasyGame extends ApplicationAdapter {
     tiledMapRenderer.render();
 
     stage.draw();
+    stage.act();
 
   }
 
