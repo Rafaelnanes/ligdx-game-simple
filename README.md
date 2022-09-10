@@ -4,7 +4,8 @@
 
 - [ ] ViewPort control
 - [ ] Camera control
-- [ ] Add hit dialog image
+- [ x ] Add hit text
+- [ ] Remove object after getting hit
 - [ ] Add death image
 - [ ] Add health bar
 - [ ] Add attack

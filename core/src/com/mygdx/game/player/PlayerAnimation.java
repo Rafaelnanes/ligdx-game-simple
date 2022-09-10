@@ -47,6 +47,16 @@ public class PlayerAnimation {
     playerRectangle = new Rectangle(0, 0, anyRegion.getRegionWidth(), anyRegion.getRegionHeight());
   }
 
+  private static PlayerState checkMovement(PlayerStateMachine stateMachine, PlayerState state) {
+    if (Gdx.input.isKeyPressed(Input.Keys.A)
+        || Gdx.input.isKeyPressed(Input.Keys.W)
+        || Gdx.input.isKeyPressed(Input.Keys.D)
+        || Gdx.input.isKeyPressed(Input.Keys.S)) {
+      state = stateMachine.activateMoving();
+    }
+    return state;
+  }
+
   public void draw(Batch batch) {
     lastPosition.set(playerRectangle.getX(), playerRectangle.getY());
     speed = player.getVelocity() * Gdx.graphics.getDeltaTime();
@@ -58,13 +68,48 @@ public class PlayerAnimation {
       speed *= 2;
     }
 
+    checkMovementBuff();
+    checkGetHit(stateMachine);
+    state = checkMovement(stateMachine, state);
+    state = checkCollision(stateMachine, state);
+
+    if (state instanceof PlayerStateIdle) {
+      stateMachine.activateIdle();
+    }
+
+    batch.draw(textureRegion, playerRectangle.getX(), playerRectangle.getY());
+
+  }
+
+  private void checkMovementBuff() {
     for (Rectangle rectanglesCollision : bufferCollisions) {
       if (playerRectangle.overlaps(rectanglesCollision)) {
         speed *= 2;
         break;
       }
     }
+  }
 
+  private PlayerState checkCollision(PlayerStateMachine stateMachine, PlayerState state) {
+    for (Rectangle rectanglesCollision : rectanglesCollisions) {
+      if (playerRectangle.overlaps(rectanglesCollision)) {
+        state = stateMachine.activateBlocked();
+        break;
+      }
+    }
+    return state;
+  }
+
+  private List<Rectangle> getCollisions(MapObjects collisions) {
+    final List<Rectangle> rectangles = new ArrayList<>();
+    for (MapObject collision : collisions) {
+      Rectangle rectangle = ((RectangleMapObject) collision).getRectangle();
+      rectangles.add(rectangle);
+    }
+    return rectangles;
+  }
+
+  private void checkGetHit(PlayerStateMachine stateMachine) {
     for (MapObject mapObject : trapsCollision) {
       RectangleMapObject rectangleMapObject = (RectangleMapObject) mapObject;
       if (playerRectangle.overlaps(rectangleMapObject.getRectangle())) {
@@ -79,26 +124,6 @@ public class PlayerAnimation {
         break;
       }
     }
-
-    if (Gdx.input.isKeyPressed(Input.Keys.A)
-        || Gdx.input.isKeyPressed(Input.Keys.W)
-        || Gdx.input.isKeyPressed(Input.Keys.D)
-        || Gdx.input.isKeyPressed(Input.Keys.S)) {
-      state = stateMachine.activateMoving();
-    }
-
-    for (Rectangle rectanglesCollision : rectanglesCollisions) {
-      if (playerRectangle.overlaps(rectanglesCollision)) {
-        state = stateMachine.activateBlocked();
-        break;
-      }
-    }
-
-    if (state instanceof PlayerStateIdle) {
-      stateMachine.activateIdle();
-    }
-
-    batch.draw(textureRegion, playerRectangle.getX(), playerRectangle.getY());
   }
 
   public Rectangle getPlayerRectangle() {
@@ -119,15 +144,6 @@ public class PlayerAnimation {
 
   public void setTextureRegion(TextureRegion textureRegion) {
     this.textureRegion = textureRegion;
-  }
-
-  private List<Rectangle> getCollisions(MapObjects collisions) {
-    final List<Rectangle> rectangles = new ArrayList<>();
-    for (MapObject collision : collisions) {
-      Rectangle rectangle = ((RectangleMapObject) collision).getRectangle();
-      rectangles.add(rectangle);
-    }
-    return rectangles;
   }
 
 }

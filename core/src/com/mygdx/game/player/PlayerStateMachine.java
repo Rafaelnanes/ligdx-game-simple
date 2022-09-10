@@ -40,7 +40,7 @@ public class PlayerStateMachine {
   public PlayerState getHit() {
     return getHit;
   }
-  
+
   public PlayerState getDead() {
     return dead;
   }
@@ -70,7 +70,7 @@ public class PlayerStateMachine {
     return dead;
   }
 
-  public void setState(PlayerState state) {
+  void setState(PlayerState state) {
     if (dead.isActive()) {
       return;
     }

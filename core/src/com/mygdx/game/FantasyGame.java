@@ -4,40 +4,39 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.game.context.MyAssetManager;
 import com.mygdx.game.player.Player;
+import com.mygdx.game.text.FloatingText;
 
 public class FantasyGame extends ApplicationAdapter {
-  TiledMap tiledMap;
-  OrthographicCamera camera;
-  TiledMapRenderer tiledMapRenderer;
+  private OrthographicCamera camera;
+  private TiledMapRenderer tiledMapRenderer;
 
-  Stage stage;
-  SpriteBatch sb;
-  Player zelda;
+  private Stage stage;
+  private FloatingText floatingText;
 
   @Override
   public void create() {
-    sb = new SpriteBatch();
     float w = Gdx.graphics.getWidth();
     float h = Gdx.graphics.getHeight();
     camera = new OrthographicCamera();
     camera.setToOrtho(false, w, h);
     camera.update();
-    tiledMap = MyAssetManager.getInstance().getTileMap();
+    TiledMap tiledMap = MyAssetManager.getInstance().getTileMap();
 
     tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 
-    zelda = new Player();
-
     stage = new Stage();
+
+    Player zelda = new Player();
     stage.addActor(zelda);
+
   }
+
 
   @Override
   public void render() {
@@ -55,7 +54,6 @@ public class FantasyGame extends ApplicationAdapter {
   @Override
   public void dispose() {
     super.dispose();
-    sb.dispose();
     stage.dispose();
   }
 
