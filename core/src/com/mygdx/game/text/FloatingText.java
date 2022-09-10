@@ -42,15 +42,10 @@ public class FloatingText extends Actor {
   public void draw(Batch batch, float parentAlpha) {
     if (animated) {
       // The component will auto-destruct when animation is finished.
-      //      if (isDisposable()) {
-      //        dispose();
-      //        return;
-      //      }
-
       float elapsed = System.currentTimeMillis() - animationStart;
 
       // The text will be fading.
-      font.setColor(getColor().r, getColor().g, getColor().b, parentAlpha * (1 - elapsed / animationDuration));
+      font.setColor(getColor().r, 0f, 0f, parentAlpha * (1 - elapsed / animationDuration));
 
       if (text.length() > 0) {
         font.draw(batch, text, getX() + deltaX * elapsed / 1000f, getY() + deltaY * elapsed / 1000f);

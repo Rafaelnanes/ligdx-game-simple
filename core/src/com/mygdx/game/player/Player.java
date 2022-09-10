@@ -15,7 +15,7 @@ public class Player extends Actor {
   public Player() {
     animation = new PlayerAnimation(this);
     stateMachine = new PlayerStateMachine(this);
-    stateMachine.getIdle().action(new PlayerStateDTO(this));
+    stateMachine.getIdle().action(this);
   }
 
   @Override
