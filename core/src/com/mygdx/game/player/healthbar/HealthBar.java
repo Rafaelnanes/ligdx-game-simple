@@ -25,8 +25,6 @@ public class HealthBar extends ProgressBar {
     setAnimateDuration(0.25f);
     player.getChildren().insert(0, this);
 
-    addListener(new HealthBarEventListener(this));
-    //    addCaptureListener(new HealthBarUpdateListener(this));
   }
 
   public static Drawable getColoredDrawable(int width, int height, Color color) {
@@ -40,4 +38,13 @@ public class HealthBar extends ProgressBar {
 
     return drawable;
   }
+
+  public void updateValue(int hitValue) {
+    setValue((float) (getValue() - (hitValue * 0.01)));
+  }
+
+  public void setZeroValue() {
+    setValue(0);
+  }
+
 }

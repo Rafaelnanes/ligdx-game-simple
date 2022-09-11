@@ -2,7 +2,6 @@ package com.mygdx.game.player.state;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.player.Player;
-import com.mygdx.game.player.healthbar.HealthBarEventListener;
 import com.mygdx.game.text.FloatingText;
 
 public class PlayerStateGetHit extends AbstractPlayerState {
@@ -17,7 +16,11 @@ public class PlayerStateGetHit extends AbstractPlayerState {
       player.getStateMachine().activateDead();
       return;
     }
-    player.getHealthBar().fire(new HealthBarEventListener.HealthBarUpdateEvent(hitValue));
+    decreaseHP(player, hitValue);
+  }
+
+  private void decreaseHP(Player player, int hitValue) {
+    player.getHealthBar().updateValue(hitValue);
   }
 
   private void addFloatingText(Player player, int hitValue) {
