@@ -1,8 +1,11 @@
 package com.mygdx.game.player;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.mygdx.game.context.MyAssetManager;
 import com.mygdx.game.player.healthbar.HealthBar;
 import lombok.Getter;
 
@@ -37,6 +40,7 @@ public class Player extends Group {
   public void dead() {
     health = 0;
     System.out.println("Dead");
+    animation.setTextureRegion(new TextureRegion(new Texture(MyAssetManager.getInstance().getPlayerDead())));
   }
 
   public int getHealth() {

@@ -49,4 +49,9 @@ public class MyAssetManager {
     //    return assetManager.get("enemy/cactus.png", Texture.class);
     return Gdx.files.internal("zelda/blood.png");
   }
+
+  public FileHandle getPlayerDead() {
+    //    return assetManager.get("enemy/cactus.png", Texture.class);
+    return Gdx.files.internal("zelda/player-dead.png");
+  }
 }
