@@ -45,22 +45,34 @@ public class PlayerStateMoving extends AbstractPlayerState {
     TextureRegion textureRegion = null;
 
     if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-      playerRectangle.setX(playerRectangle.getX() + speed);
+      final float x = playerRectangle.getX() + speed;
+      if (x <= Gdx.graphics.getWidth()) {
+        playerRectangle.setX(x);
+      }
       textureRegion = runRightAnimation.getKeyFrame(stateTime, true);
     }
 
     if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-      playerRectangle.setX(playerRectangle.getX() - speed);
+      final float x = playerRectangle.getX() - speed;
+      if (x > 0) {
+        playerRectangle.setX(x);
+      }
       textureRegion = runLeftAnimation.getKeyFrame(stateTime, true);
     }
 
     if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-      playerRectangle.setY(playerRectangle.getY() + speed);
+      final float y = playerRectangle.getY() + speed;
+      if (y <= Gdx.graphics.getHeight()) {
+        playerRectangle.setY(y);
+      }
       textureRegion = runUpAnimation.getKeyFrame(stateTime, true);
     }
 
     if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-      playerRectangle.setY(playerRectangle.getY() - speed);
+      final float y = playerRectangle.getY() - speed;
+      if (y > 0) {
+        playerRectangle.setY(y);
+      }
       textureRegion = runDownAnimation.getKeyFrame(stateTime, true);
     }
 

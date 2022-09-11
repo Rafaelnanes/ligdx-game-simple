@@ -8,6 +8,7 @@ import lombok.Getter;
 @Getter
 public class Player extends Group {
 
+  public static final int CHILD_HEALTHBAR_INDEX = 0;
   private final PlayerAnimation animation;
   private final PlayerStateMachine stateMachine;
   private final int velocity = 100;
@@ -42,7 +43,7 @@ public class Player extends Group {
   }
 
   public HealthBar getHealthBar() {
-    return (HealthBar) getChild(0);
+    return (HealthBar) getChild(CHILD_HEALTHBAR_INDEX);
   }
 
 }

@@ -31,8 +31,7 @@ public class FantasyGame extends ApplicationAdapter {
     Player player = new Player();
     stage.addActor(player);
 
-    HealthBar healthBar = new HealthBar(200, 100, player);
-    healthBar.setPosition(10, Gdx.graphics.getHeight() - 20);
+    HealthBar healthBar = new HealthBar(player);
     stage.addActor(healthBar);
 
     stage.setPlayer(player);
