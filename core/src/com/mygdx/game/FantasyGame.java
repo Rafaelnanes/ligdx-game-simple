@@ -8,14 +8,14 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.mygdx.game.context.MyAssetManager;
-import com.mygdx.game.context.MyState;
+import com.mygdx.game.context.MyStage;
 import com.mygdx.game.player.Player;
 import com.mygdx.game.player.healthbar.HealthBar;
 
 public class FantasyGame extends ApplicationAdapter {
   private OrthographicCamera camera;
   private TiledMapRenderer tiledMapRenderer;
-  private MyState stage;
+  private MyStage stage;
 
   @Override
   public void create() {
@@ -26,16 +26,16 @@ public class FantasyGame extends ApplicationAdapter {
 
     tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 
-    stage = new MyState();
+    stage = new MyStage();
 
-    HealthBar healthBar = new HealthBar(200, 100);
+    Player player = new Player();
+    stage.addActor(player);
+
+    HealthBar healthBar = new HealthBar(200, 100, player);
     healthBar.setPosition(10, Gdx.graphics.getHeight() - 20);
     stage.addActor(healthBar);
 
-    Player zelda = new Player();
-    stage.addActor(zelda);
-
-    stage.setHealthBar(healthBar);
+    stage.setPlayer(player);
 
   }
 
@@ -48,8 +48,8 @@ public class FantasyGame extends ApplicationAdapter {
     tiledMapRenderer.setView(camera);
     tiledMapRenderer.render();
 
-    stage.draw();
     stage.act();
+    stage.draw();
 
   }
 

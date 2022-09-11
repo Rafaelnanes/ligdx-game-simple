@@ -1,17 +1,17 @@
 package com.mygdx.game.context;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.mygdx.game.player.healthbar.HealthBar;
+import com.mygdx.game.player.Player;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class MyState extends Stage {
+public class MyStage extends Stage {
 
-  private HealthBar healthBar;
+  private Player player;
 
-  public MyState() {
+  public MyStage() {
     super();
   }
 

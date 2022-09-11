@@ -1,11 +1,12 @@
 package com.mygdx.game.player;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.mygdx.game.player.healthbar.HealthBar;
 import lombok.Getter;
 
 @Getter
-public class Player extends Actor {
+public class Player extends Group {
 
   private final PlayerAnimation animation;
   private final PlayerStateMachine stateMachine;
@@ -16,6 +17,7 @@ public class Player extends Actor {
     animation = new PlayerAnimation(this);
     stateMachine = new PlayerStateMachine(this);
     stateMachine.getIdle().action(this);
+
   }
 
   @Override
@@ -37,6 +39,10 @@ public class Player extends Actor {
 
   public int getHealth() {
     return health;
+  }
+
+  public HealthBar getHealthBar() {
+    return (HealthBar) getChild(0);
   }
 
 }
