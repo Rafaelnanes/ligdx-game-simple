@@ -47,15 +47,6 @@ public class PlayerAnimation {
     playerRectangle = new Rectangle(0, 0, anyRegion.getRegionWidth(), anyRegion.getRegionHeight());
   }
 
-  private static PlayerState checkMovement(PlayerStateMachine stateMachine, PlayerState state) {
-    if (Gdx.input.isKeyPressed(Input.Keys.A)
-        || Gdx.input.isKeyPressed(Input.Keys.W)
-        || Gdx.input.isKeyPressed(Input.Keys.D)
-        || Gdx.input.isKeyPressed(Input.Keys.S)) {
-      state = stateMachine.activateMoving();
-    }
-    return state;
-  }
 
   public void draw(Batch batch) {
     lastPosition.set(playerRectangle.getX(), playerRectangle.getY());
@@ -80,6 +71,17 @@ public class PlayerAnimation {
     batch.draw(textureRegion, playerRectangle.getX(), playerRectangle.getY());
 
   }
+
+  private PlayerState checkMovement(PlayerStateMachine stateMachine, PlayerState state) {
+    if (Gdx.input.isKeyPressed(Input.Keys.A)
+        || Gdx.input.isKeyPressed(Input.Keys.W)
+        || Gdx.input.isKeyPressed(Input.Keys.D)
+        || Gdx.input.isKeyPressed(Input.Keys.S)) {
+      state = stateMachine.activateMoving();
+    }
+    return state;
+  }
+
 
   private void checkMovementBuff() {
     for (Rectangle rectanglesCollision : bufferCollisions) {
