@@ -24,7 +24,7 @@ public class PlayerAnimation {
   public static final float FRAME_DURATION = 0.1f;
   private final List<Rectangle> rectanglesCollisions;
   private final List<Rectangle> bufferCollisions;
-  private final MapObjects trapsCollision;
+  //  private final MapObjects trapsCollision;
   private final Rectangle playerRectangle;
   private final Player player;
   private final Vector2 lastPosition = new Vector2();
@@ -38,7 +38,7 @@ public class PlayerAnimation {
     final TiledMap tileMap = MyAssetManager.getInstance().getTileMap();
     final MapObjects collisions = tileMap.getLayers().get("Blockers").getObjects();
     final MapObjects buffLayer = tileMap.getLayers().get("Flowers").getObjects();
-    trapsCollision = tileMap.getLayers().get("Traps").getObjects();
+    //    trapsCollision = tileMap.getLayers().get("Traps").getObjects();
     rectanglesCollisions = getCollisions(collisions);
     bufferCollisions = getCollisions(buffLayer);
 
@@ -46,7 +46,6 @@ public class PlayerAnimation {
         new TextureAtlas(MyAssetManager.getInstance().getZeldaAtlas()).getRegions().get(0);
     playerRectangle = new Rectangle(0, 0, anyRegion.getRegionWidth(), anyRegion.getRegionHeight());
   }
-
 
   public void draw(Batch batch) {
     lastPosition.set(playerRectangle.getX(), playerRectangle.getY());
@@ -60,7 +59,7 @@ public class PlayerAnimation {
     }
 
     checkMovementBuff();
-    checkGetHit(stateMachine);
+    //    checkGetHit(stateMachine);
     state = checkMovement(stateMachine, state);
     state = checkCollision(stateMachine, state);
 
@@ -81,7 +80,6 @@ public class PlayerAnimation {
     }
     return state;
   }
-
 
   private void checkMovementBuff() {
     for (Rectangle rectanglesCollision : bufferCollisions) {
@@ -112,7 +110,7 @@ public class PlayerAnimation {
   }
 
   private void checkGetHit(PlayerStateMachine stateMachine) {
-    for (MapObject mapObject : trapsCollision) {
+    for (MapObject mapObject : List.of(new MapObject())) {
       RectangleMapObject rectangleMapObject = (RectangleMapObject) mapObject;
       if (playerRectangle.overlaps(rectangleMapObject.getRectangle())) {
         // não interfere no estado idle

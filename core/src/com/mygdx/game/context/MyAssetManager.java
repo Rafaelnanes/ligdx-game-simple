@@ -3,6 +3,7 @@ package com.mygdx.game.context;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -28,6 +29,7 @@ public class MyAssetManager {
 
   private void loadImages() {
     assetManager.load("zelda/zelda.atlas", TextureAtlas.class);
+    assetManager.load("enemy/cactus.png", Texture.class);
   }
 
   public FileHandle getZeldaAtlas() {
@@ -38,4 +40,8 @@ public class MyAssetManager {
     return tiledMap;
   }
 
+  public FileHandle getCactusTexture() {
+    //    return assetManager.get("enemy/cactus.png", Texture.class);
+    return Gdx.files.internal("enemy/cactus.png");
+  }
 }
