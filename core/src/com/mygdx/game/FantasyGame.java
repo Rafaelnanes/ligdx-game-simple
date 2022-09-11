@@ -32,7 +32,6 @@ public class FantasyGame extends ApplicationAdapter {
     tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 
     stage = new MyStage();
-    createCactusEnemies(tiledMap);
 
     Player player = new Player();
     stage.addActor(player);
@@ -42,6 +41,7 @@ public class FantasyGame extends ApplicationAdapter {
 
     stage.setPlayer(player);
 
+    createCactusEnemies(tiledMap);
   }
 
   private void createCactusEnemies(TiledMap tiledMap) {
@@ -49,7 +49,7 @@ public class FantasyGame extends ApplicationAdapter {
     for (MapObject mapObject : trapsCollisions) {
       RectangleMapObject rectangleMapObject = (RectangleMapObject) mapObject;
       final Rectangle rectangle = rectangleMapObject.getRectangle();
-      stage.addActor(new CactusEnemy(rectangle.getX(), rectangle.getY()));
+      stage.addActor(new CactusEnemy(rectangle));
     }
   }
 

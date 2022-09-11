@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
-import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
@@ -24,7 +23,6 @@ public class PlayerAnimation {
   public static final float FRAME_DURATION = 0.1f;
   private final List<Rectangle> rectanglesCollisions;
   private final List<Rectangle> bufferCollisions;
-  //  private final MapObjects trapsCollision;
   private final Rectangle playerRectangle;
   private final Player player;
   private final Vector2 lastPosition = new Vector2();
@@ -38,7 +36,6 @@ public class PlayerAnimation {
     final TiledMap tileMap = MyAssetManager.getInstance().getTileMap();
     final MapObjects collisions = tileMap.getLayers().get("Blockers").getObjects();
     final MapObjects buffLayer = tileMap.getLayers().get("Flowers").getObjects();
-    //    trapsCollision = tileMap.getLayers().get("Traps").getObjects();
     rectanglesCollisions = getCollisions(collisions);
     bufferCollisions = getCollisions(buffLayer);
 
@@ -59,7 +56,6 @@ public class PlayerAnimation {
     }
 
     checkMovementBuff();
-    //    checkGetHit(stateMachine);
     state = checkMovement(stateMachine, state);
     state = checkCollision(stateMachine, state);
 
@@ -107,23 +103,6 @@ public class PlayerAnimation {
       rectangles.add(rectangle);
     }
     return rectangles;
-  }
-
-  private void checkGetHit(PlayerStateMachine stateMachine) {
-    for (MapObject mapObject : List.of(new MapObject())) {
-      RectangleMapObject rectangleMapObject = (RectangleMapObject) mapObject;
-      if (playerRectangle.overlaps(rectangleMapObject.getRectangle())) {
-        // não interfere no estado idle
-        final MapProperties properties = mapObject.getProperties();
-        final String isValidKey = "isValidKey";
-        if (properties.containsKey(isValidKey) && !properties.get(isValidKey, Boolean.class)) {
-          break;
-        }
-        stateMachine.activateGetHit();
-        properties.put(isValidKey, Boolean.FALSE);
-        break;
-      }
-    }
   }
 
   public Rectangle getPlayerRectangle() {

@@ -1,6 +1,7 @@
 package com.mygdx.game.player;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.mygdx.game.player.healthbar.HealthBar;
 import lombok.Getter;
@@ -44,6 +45,10 @@ public class Player extends Group {
 
   public HealthBar getHealthBar() {
     return (HealthBar) getChild(CHILD_HEALTHBAR_INDEX);
+  }
+
+  public Rectangle getRectangle() {
+    return animation.getPlayerRectangle();
   }
 
 }
